@@ -14,10 +14,13 @@ const (
 	requestLimitExceeded = "request rate limit exceeded"
 )
 
+// postCoordinate sends GET request to UK police data
 func (c Client) postCoordinate(coordinates responses.Location) (*responses.Report, error) {
+	// URL constructions with params of coordinates
 	requestUrl := c.apiUrl + urlStreetCrime
 	params := paramLat + coordinates.Latitude + paramLon + coordinates.Longitude
 
+	// sending coordinates
 	resp, err := c.client.Get(requestUrl + params)
 	if err != nil {
 		return &responses.Report{}, err
